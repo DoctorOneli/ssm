@@ -1,0 +1,48 @@
+#tomcat的配置
+server:
+  port: 8088
+  error:
+    path: /error
+  servlet:
+    session:
+      timeout: 30m
+    context-path: /boot
+  tomcat:
+    uri-encoding: utf-8
+    max-threads: 500
+    
+
+spring:
+#静态资源的访问配置
+  mvc:
+    static-path-pattern: /public/**
+    
+  resources:
+    static-locations: classpath\:/public/
+
+
+#数据库连接配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: ooq666
+
+#redis连接配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: ooq666
+    
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: org.freedom.boot.bean
+           
+#分页配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

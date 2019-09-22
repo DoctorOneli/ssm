@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.freedom.boot.dao.EvaluateMapper">
+  <resultMap id="BaseResultMap" type="org.freedom.boot.bean.Evaluate">
+    <id column="evaluate_id" jdbcType="INTEGER" property="evaluateId" />
+    <result column="order_item_id" jdbcType="INTEGER" property="orderItemId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="evaluate_time" jdbcType="TIMESTAMP" property="evaluateTime" />
+    <result column="logistics_grade" jdbcType="INTEGER" property="logisticsGrade" />
+    <result column="service_grade" jdbcType="INTEGER" property="serviceGrade" />
+    <result column="goods_grade" jdbcType="INTEGER" property="goodsGrade" />
+    <result column="to_evaluate_id" jdbcType="INTEGER" property="toEvaluateId" />
+    <result column="if_anonymous" jdbcType="INTEGER" property="ifAnonymous" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.freedom.boot.bean.Evaluate">
+    <result column="img" jdbcType="LONGVARCHAR" property="img" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    evaluate_id, order_item_id, user_id, content, evaluate_time, logistics_grade, service_grade, 
+    goods_grade, to_evaluate_id, if_anonymous
+  </sql>
+  <sql id="Blob_Column_List">
+    img
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="org.freedom.boot.bean.EvaluateExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tp_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="org.freedom.boot.bean.EvaluateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tp_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tp_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tp_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.freedom.boot.bean.EvaluateExample">
+    delete from tp_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.freedom.boot.bean.Evaluate">
+    insert into tp_evaluate (evaluate_id, order_item_id, user_id, 
+      content, evaluate_time, logistics_grade, 
+      service_grade, goods_grade, to_evaluate_id, 
+      if_anonymous, img)
+    values (#{evaluateId,jdbcType=INTEGER}, #{orderItemId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{evaluateTime,jdbcType=TIMESTAMP}, #{logisticsGrade,jdbcType=INTEGER}, 
+      #{serviceGrade,jdbcType=INTEGER}, #{goodsGrade,jdbcType=INTEGER}, #{toEvaluateId,jdbcType=INTEGER}, 
+      #{ifAnonymous,jdbcType=INTEGER}, #{img,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.freedom.boot.bean.Evaluate">
+    insert into tp_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="evaluateId != null">
+        evaluate_id,
+      </if>
+      <if test="orderItemId != null">
+        order_item_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="evaluateTime != null">
+        evaluate_time,
+      </if>
+      <if test="logisticsGrade != null">
+        logistics_grade,
+      </if>
+      <if test="serviceGrade != null">
+        service_grade,
+      </if>
+      <if test="goodsGrade != null">
+        goods_grade,
+      </if>
+      <if test="toEvaluateId != null">
+        to_evaluate_id,
+      </if>
+      <if test="ifAnonymous != null">
+        if_anonymous,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="evaluateId != null">
+        #{evaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderItemId != null">
+        #{orderItemId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null">
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsGrade != null">
+        #{logisticsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="serviceGrade != null">
+        #{serviceGrade,jdbcType=INTEGER},
+      </if>
+      <if test="goodsGrade != null">
+        #{goodsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="toEvaluateId != null">
+        #{toEvaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="ifAnonymous != null">
+        #{ifAnonymous,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.freedom.boot.bean.EvaluateExample" resultType="java.lang.Long">
+    select count(*) from tp_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tp_evaluate
+    <set>
+      <if test="record.evaluateId != null">
+        evaluate_id = #{record.evaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderItemId != null">
+        order_item_id = #{record.orderItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evaluateTime != null">
+        evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logisticsGrade != null">
+        logistics_grade = #{record.logisticsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceGrade != null">
+        service_grade = #{record.serviceGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsGrade != null">
+        goods_grade = #{record.goodsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.toEvaluateId != null">
+        to_evaluate_id = #{record.toEvaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ifAnonymous != null">
+        if_anonymous = #{record.ifAnonymous,jdbcType=INTEGER},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tp_evaluate
+    set evaluate_id = #{record.evaluateId,jdbcType=INTEGER},
+      order_item_id = #{record.orderItemId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      logistics_grade = #{record.logisticsGrade,jdbcType=INTEGER},
+      service_grade = #{record.serviceGrade,jdbcType=INTEGER},
+      goods_grade = #{record.goodsGrade,jdbcType=INTEGER},
+      to_evaluate_id = #{record.toEvaluateId,jdbcType=INTEGER},
+      if_anonymous = #{record.ifAnonymous,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tp_evaluate
+    set evaluate_id = #{record.evaluateId,jdbcType=INTEGER},
+      order_item_id = #{record.orderItemId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      logistics_grade = #{record.logisticsGrade,jdbcType=INTEGER},
+      service_grade = #{record.serviceGrade,jdbcType=INTEGER},
+      goods_grade = #{record.goodsGrade,jdbcType=INTEGER},
+      to_evaluate_id = #{record.toEvaluateId,jdbcType=INTEGER},
+      if_anonymous = #{record.ifAnonymous,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.freedom.boot.bean.Evaluate">
+    update tp_evaluate
+    <set>
+      <if test="orderItemId != null">
+        order_item_id = #{orderItemId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null">
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsGrade != null">
+        logistics_grade = #{logisticsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="serviceGrade != null">
+        service_grade = #{serviceGrade,jdbcType=INTEGER},
+      </if>
+      <if test="goodsGrade != null">
+        goods_grade = #{goodsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="toEvaluateId != null">
+        to_evaluate_id = #{toEvaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="ifAnonymous != null">
+        if_anonymous = #{ifAnonymous,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.freedom.boot.bean.Evaluate">
+    update tp_evaluate
+    set order_item_id = #{orderItemId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      logistics_grade = #{logisticsGrade,jdbcType=INTEGER},
+      service_grade = #{serviceGrade,jdbcType=INTEGER},
+      goods_grade = #{goodsGrade,jdbcType=INTEGER},
+      to_evaluate_id = #{toEvaluateId,jdbcType=INTEGER},
+      if_anonymous = #{ifAnonymous,jdbcType=INTEGER},
+      img = #{img,jdbcType=LONGVARCHAR}
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.freedom.boot.bean.Evaluate">
+    update tp_evaluate
+    set order_item_id = #{orderItemId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      logistics_grade = #{logisticsGrade,jdbcType=INTEGER},
+      service_grade = #{serviceGrade,jdbcType=INTEGER},
+      goods_grade = #{goodsGrade,jdbcType=INTEGER},
+      to_evaluate_id = #{toEvaluateId,jdbcType=INTEGER},
+      if_anonymous = #{ifAnonymous,jdbcType=INTEGER}
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+</mapper>

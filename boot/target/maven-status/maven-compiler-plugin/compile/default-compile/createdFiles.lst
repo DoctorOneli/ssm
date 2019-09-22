@@ -1,0 +1,13 @@
+org\freedom\boot\bean\BookWithBLOBs.class
+org\freedom\boot\dao\BookMapper.class
+org\freedom\boot\bean\BookExample$Criteria.class
+org\freedom\boot\mgbTest.class
+org\freedom\boot\bean\Book.class
+org\freedom\boot\bean\Msg.class
+org\freedom\boot\bean\BookExample$GeneratedCriteria.class
+org\freedom\boot\TestController.class
+org\freedom\boot\service\BookService.class
+org\freedom\boot\bean\BookExample$Criterion.class
+org\freedom\boot\App.class
+org\freedom\boot\Book.class
+org\freedom\boot\bean\BookExample.class

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.freedom.boot.dao.OrderCancelMapper">
+  <resultMap id="BaseResultMap" type="org.freedom.boot.bean.OrderCancel">
+    <id column="order_cancel_id" jdbcType="INTEGER" property="orderCancelId" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="cancel_reason_id" jdbcType="INTEGER" property="cancelReasonId" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_cancel_id, order_id, cancel_reason_id, detail
+  </sql>
+  <select id="selectByExample" parameterType="org.freedom.boot.bean.OrderCancelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tp_order_cancel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tp_order_cancel
+    where order_cancel_id = #{orderCancelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tp_order_cancel
+    where order_cancel_id = #{orderCancelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.freedom.boot.bean.OrderCancelExample">
+    delete from tp_order_cancel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.freedom.boot.bean.OrderCancel">
+    insert into tp_order_cancel (order_cancel_id, order_id, cancel_reason_id, 
+      detail)
+    values (#{orderCancelId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{cancelReasonId,jdbcType=INTEGER}, 
+      #{detail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.freedom.boot.bean.OrderCancel">
+    insert into tp_order_cancel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderCancelId != null">
+        order_cancel_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="cancelReasonId != null">
+        cancel_reason_id,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderCancelId != null">
+        #{orderCancelId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="cancelReasonId != null">
+        #{cancelReasonId,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.freedom.boot.bean.OrderCancelExample" resultType="java.lang.Long">
+    select count(*) from tp_order_cancel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tp_order_cancel
+    <set>
+      <if test="record.orderCancelId != null">
+        order_cancel_id = #{record.orderCancelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cancelReasonId != null">
+        cancel_reason_id = #{record.cancelReasonId,jdbcType=INTEGER},
+      </if>
+      <if test="record.detail != null">
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tp_order_cancel
+    set order_cancel_id = #{record.orderCancelId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      cancel_reason_id = #{record.cancelReasonId,jdbcType=INTEGER},
+      detail = #{record.detail,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.freedom.boot.bean.OrderCancel">
+    update tp_order_cancel
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="cancelReasonId != null">
+        cancel_reason_id = #{cancelReasonId,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_cancel_id = #{orderCancelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.freedom.boot.bean.OrderCancel">
+    update tp_order_cancel
+    set order_id = #{orderId,jdbcType=INTEGER},
+      cancel_reason_id = #{cancelReasonId,jdbcType=INTEGER},
+      detail = #{detail,jdbcType=VARCHAR}
+    where order_cancel_id = #{orderCancelId,jdbcType=INTEGER}
+  </update>
+</mapper>
