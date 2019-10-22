@@ -338,10 +338,10 @@
 	
 			var ul = $("<ul></ul>").addClass("pagination");
 	
-			var firstPage = $("<li></li>").append($("<a></a>").append("首页").attr("href", "#"));
+			var firstPage = $("<li></li>").append($("<a></a>").append("首页"));
 			var prePage = $("<li></li>").append($("<a></a>").append("&laquo;"));
 			var nextPage = $("<li></li>").append($("<a></a>").append("&raquo;"));
-			var lastPage = $("<li></li>").append($("<a></a>").append("尾页").attr("href", "#"));
+			var lastPage = $("<li></li>").append($("<a></a>").append("尾页"));
 	
 			if (pageInfo.isFirstPage == true) {
 				firstPage.addClass("disabled");
