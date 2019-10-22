@@ -16,6 +16,12 @@ public class StuClassService {
 	@Autowired
 	StuClassMapper stuClassMapper;
 
+	public List<StuClass> getStuClass()
+	{
+		return stuClassMapper.selectByExample(null);
+	}
+	
+	
 	public List<diyCourse> getCourse()
 	{
 		 

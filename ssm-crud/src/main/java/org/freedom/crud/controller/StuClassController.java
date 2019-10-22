@@ -12,13 +12,18 @@ public class StuClassController {
 
 	@Autowired
 	StuClassService stuClassService;
-	
+
 	@RequestMapping("/course")
 	@ResponseBody
-	public Msg getCourse()
-	{
+	public Msg getCourse() {
 		return Msg.success().add("data", stuClassService.getCourse());
 	}
-	
-	
+
+	@RequestMapping("/stuClass")
+	@ResponseBody
+	public Msg getStuClass()
+	{
+		return Msg.success().add("stuClass", stuClassService.getStuClass());
+	}
+
 }
